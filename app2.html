@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namma PUC Prep 2026</title>
+    <style>
+        :root {
+            --kar-red: #D32F2F;
+            --kar-gold: #FFC107;
+            --dark-blue: #1A237E;
+            --white: #ffffff;
+            --gray: #f4f4f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: var(--gray);
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--kar-red) 50%, var(--kar-gold) 50%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        header h1 { margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Essential Links Section */
+        .link-card {
+            background: var(--dark-blue);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .link-card a {
+            background: var(--kar-gold);
+            color: #000;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .link-card a:hover { background: white; transform: scale(1.05); }
+
+        /* Module Cards */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--kar-red);
+        }
+
+        h2 { margin-top: 0; color: var(--dark-blue); border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        /* Study Timer */
+        #timer-display {
+            font-size: 3.5rem;
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+            color: var(--kar-red);
+        }
+
+        .timer-btns { display: flex; gap: 10px; justify-content: center; }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-start { background: #2E7D32; color: white; }
+        .btn-reset { background: #757575; color: white; }
+
+        /* Checklist */
+        .subject-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        input[type="checkbox"] { width: 20px; height: 20px; margin-right: 15px; cursor: pointer; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>PUC-II Board Master</h1>
+    <p>Official 2nd PUC Preparation Hub (Karnataka)</p>
+</header>
+
+<div class="container">
+
+    <div class="link-card">
+        <div>
+            <div style="font-size: 1.2rem; font-weight: bold;">Official KSEAB Portal</div>
+            <div style="font-size: 0.85rem; opacity: 0.8;">Download Model Papers & Blueprints</div>
+        </div>
+        <a href="https://dpue-exam.karnataka.gov.in/kseabdpueqpue/MODELTWSIX" target="_blank">Access Papers</a>
+    </div>
+
+    <div class="card">
+        <h2>⏱️ Focus Timer (Pomodoro)</h2>
+        <div id="timer-display">25:00</div>
+        <div class="timer-btns">
+            <button class="btn-start" onclick="toggleTimer()" id="timer-btn">Start Session</button>
+            <button class="btn-reset" onclick="resetTimer()">Reset</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📚 High-Weightage Chapters</h2>
+        <div class="subject-item"><input type="checkbox"> <span><b>Physics:</b> Electrostatics & Current Electricity</span></div>
+        <div class="subject-item"><input type="checkbox"> <span><b>Maths:</b> Calculus (Integration & Differentiation)</span></div>
+        <div class="subject-item"><input type="checkbox"> <span><b>Chemistry:</b> Organic Chemistry (Named Reactions)</span></div>
+        <div class="subject-item"><input type="checkbox"> <span><b>Biology:</b> Genetics & Evolution</span></div>
+        <div class="subject-item"><input type="checkbox"> <span><b>English:</b> Romeo & Juliet Summary</span></div>
+    </div>
+
+    <div class="card" style="border-left-color: var(--kar-gold);">
+        <h2>💡 Prep Strategy</h2>
+        <ul>
+            <li>Check the <b>2026 Blueprint</b> for chapter-wise marks distribution.</li>
+            <li>Prioritize 5-mark derivations in Physics.</li>
+            <li>Practice 1-mark MCQs (now a major part of the new KSEAB pattern).</li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    // Timer Logic
+    let timeLeft = 25 * 60;
+    let timerId = null;
+    let running = false;
+
+    const display = document.getElementById('timer-display');
+    const startBtn = document.getElementById('timer-btn');
+
+    function updateDisplay() {
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function toggleTimer() {
+        if (!running) {
+            timerId = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerId);
+                    alert("Break Time! Great job.");
+                    resetTimer();
+                }
+            }, 1000);
+            startBtn.innerText = "Pause";
+            startBtn.style.background = "#D32F2F";
+        } else {
+            clearInterval(timerId);
+            startBtn.innerText = "Resume";
+            startBtn.style.background = "#2E7D32";
+        }
+        running = !running;
+    }
+
+    function resetTimer() {
+        clearInterval(timerId);
+        timeLeft = 25 * 60;
+        running = false;
+        updateDisplay();
+        startBtn.innerText = "Start Session";
+        startBtn.style.background = "#2E7D32";
+    }
+
+    updateDisplay();
+</script>
+
+</body>
+</html>
